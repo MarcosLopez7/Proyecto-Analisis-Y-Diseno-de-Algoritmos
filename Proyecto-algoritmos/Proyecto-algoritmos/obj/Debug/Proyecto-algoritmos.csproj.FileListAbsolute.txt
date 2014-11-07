@@ -1,0 +1,11 @@
+C:\Users\Marcos López\Documents\GitHub\Proyecto-Analisis-Y-Diseno-de-Algoritmos\Proyecto-algoritmos\Proyecto-algoritmos\bin\Debug\Proyecto-algoritmos.exe.config
+C:\Users\Marcos López\Documents\GitHub\Proyecto-Analisis-Y-Diseno-de-Algoritmos\Proyecto-algoritmos\Proyecto-algoritmos\bin\Debug\Proyecto-algoritmos.exe
+C:\Users\Marcos López\Documents\GitHub\Proyecto-Analisis-Y-Diseno-de-Algoritmos\Proyecto-algoritmos\Proyecto-algoritmos\bin\Debug\Proyecto-algoritmos.pdb
+C:\Users\Marcos López\Documents\GitHub\Proyecto-Analisis-Y-Diseno-de-Algoritmos\Proyecto-algoritmos\Proyecto-algoritmos\obj\Debug\Proyecto-algoritmos.csprojResolveAssemblyReference.cache
+C:\Users\Marcos López\Documents\GitHub\Proyecto-Analisis-Y-Diseno-de-Algoritmos\Proyecto-algoritmos\Proyecto-algoritmos\obj\Debug\Proyecto_algoritmos.Form1.resources
+C:\Users\Marcos López\Documents\GitHub\Proyecto-Analisis-Y-Diseno-de-Algoritmos\Proyecto-algoritmos\Proyecto-algoritmos\obj\Debug\Proyecto_algoritmos.Properties.Resources.resources
+C:\Users\Marcos López\Documents\GitHub\Proyecto-Analisis-Y-Diseno-de-Algoritmos\Proyecto-algoritmos\Proyecto-algoritmos\obj\Debug\Proyecto-algoritmos.csproj.GenerateResource.Cache
+C:\Users\Marcos López\Documents\GitHub\Proyecto-Analisis-Y-Diseno-de-Algoritmos\Proyecto-algoritmos\Proyecto-algoritmos\obj\Debug\Proyecto-algoritmos.exe
+C:\Users\Marcos López\Documents\GitHub\Proyecto-Analisis-Y-Diseno-de-Algoritmos\Proyecto-algoritmos\Proyecto-algoritmos\obj\Debug\Proyecto-algoritmos.pdb
+C:\Users\Marcos López\Documents\GitHub\Proyecto-Analisis-Y-Diseno-de-Algoritmos\Proyecto-algoritmos\Proyecto-algoritmos\obj\Debug\Proyecto_algoritmos.Form2.resources
+C:\Users\Marcos López\Documents\GitHub\Proyecto-Analisis-Y-Diseno-de-Algoritmos\Proyecto-algoritmos\Proyecto-algoritmos\obj\Debug\Proyecto_algoritmos.Form3.resources
