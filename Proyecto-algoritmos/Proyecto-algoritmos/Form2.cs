@@ -57,8 +57,13 @@ namespace Proyecto_algoritmos
 
                 if (1145 >= x && x >= 25 && 705 >= y && y >= 25)
                 {
-                    f1.insertaVertice(x, y);
-                    this.Close();
+                    if(f1.detecta_posicion(x, y))
+                    {
+                        f1.insertaVertice(x, y);
+                        this.Close();
+                    }
+                    else
+                        MessageBox.Show("La posición insertada se interpone con otro vértice\n");
                 }
                 else
                     MessageBox.Show("El rango de la posición va:\nx entre 25 y 1145\ny entre 25 y 705");

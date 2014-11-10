@@ -24,7 +24,7 @@ namespace Proyecto_algoritmos
         private void Form1_Load(object sender, EventArgs e)
         {
             grafo.setImagen(pictureBox1);
-
+      
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -40,7 +40,6 @@ namespace Proyecto_algoritmos
             i++;
             Vertice<int, int> nodulon = new Vertice<int, int>(i, x, y);
             grafo.insertar_vertice(nodulon, x, y);
-            //grafo.trazo.DDALine(200, 200, 300, 300);
             grafo.cargarImagen();
         }
 
@@ -50,12 +49,32 @@ namespace Proyecto_algoritmos
             grafo.cargarImagen();
         }
 
+        public bool detecta_posicion(int x, int y)
+        {
+            return grafo.detecta_posicion(x, y);
+        }
+
         private void button9_Click(object sender, EventArgs e)
         {
           Form3 formulon = new Form3();
           formulon.n = i;
           formulon.f1 = this;
           formulon.Show();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Form4 formulon = new Form4();
+            formulon.f1 = this;
+            formulon.n = i;
+            formulon.Show();
+        }
+
+        public void inserta_arista(int o, int d, int peso)
+        {
+
+            grafo.insertar_aritsta(grafo.busqueda_vertice(o), grafo.busqueda_vertice(d), peso);
+            grafo.cargarImagen();
         }
     }
 }

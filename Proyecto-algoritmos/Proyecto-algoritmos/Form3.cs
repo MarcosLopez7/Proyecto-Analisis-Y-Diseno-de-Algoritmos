@@ -60,8 +60,13 @@ namespace Proyecto_algoritmos
 
                 if (n >= i && i >= 1 && 1145 >= x && x >= 25 && 705 >= y && y >= 25)
                 {
-                    f1.cambiarVertice(x, y, i);
-                    this.Close();
+                    if (f1.detecta_posicion(x, y))
+                    {
+                        f1.cambiarVertice(x, y, i);
+                        this.Close();
+                    }
+                    else
+                        MessageBox.Show("La posición insertada se interpone con otro vértice\n");
                 }
                 else
                     MessageBox.Show("El rango de los campos son los siguientes\nel vertice va de 1 a" + n + "\nx de 25 a 1145\ny de 25 a 705");

@@ -17,7 +17,7 @@ namespace Proyecto_algoritmos
        private List<int> visitados;
        private List<Vertice<V, A>> lista;
        private List<int> previo;
-       private Computacional_Geometry trazo;
+       public Computacional_Geometry trazo;
        private PictureBox imagen;
        private Numeros num;
 
@@ -61,6 +61,63 @@ namespace Proyecto_algoritmos
 
        }
 
+       public void insertar_aritsta(Vertice<V, A> o, Vertice<V, A> d, A peso)
+       {
+           if(o != null && d != null)
+           {
+               Arista<V, A> nueva = new Arista<V, A>(peso, d);
+               o.insertar_arista(nueva);
+           }
+
+           int dx = d.X - o.X;
+           int dy = d.Y - o.Y;
+           int px = (o.X + d.X) / 2;
+           int py = (o.Y + d.Y) / 2;
+
+           if (dy != 0)
+           {
+               double angulo = Math.Atan((dx) / (dy));
+               double x = Math.Sin(angulo) * 25;
+               double y = Math.Cos(angulo) * 25;
+               double pmy = Math.Sin(angulo) * 25;
+               double pmx = Math.Cos(angulo) * 36;
+               if (o.Y < d.Y)
+               {
+                   trazo.BresenhamLine(o.X + Convert.ToInt32(x), o.Y + Convert.ToInt32(y), d.X - Convert.ToInt32(x), d.Y - Convert.ToInt32(y), Color.White);
+                   num.crea_numero(px + Convert.ToInt32(pmx), py - Convert.ToInt32(pmy), Convert.ToInt32(peso), Color.Blue);
+                   
+                   
+               }
+               else
+               {
+                   trazo.BresenhamLine(o.X - Convert.ToInt32(x), o.Y - Convert.ToInt32(y), d.X + Convert.ToInt32(x), d.Y + Convert.ToInt32(y), Color.White);
+                   num.crea_numero(px - Convert.ToInt32(pmx), py + Convert.ToInt32(pmy), Convert.ToInt32(peso), Color.Blue);
+                   double tx = Math.Sin(angulo) * 10;
+                   double ty = Math.Cos(angulo) * 10;
+                   double otroX = Math.Sin(angulo) * 30;
+                   double otroY = Math.Cos(angulo) * 30;
+                   trazo.BresenhamLine(d.X + Convert.ToInt32(x) - Convert.ToInt32(tx), d.Y + Convert.ToInt32(y) + Convert.ToInt32(ty), d.X + Convert.ToInt32(x), d.Y + Convert.ToInt32(y), Color.Blue);
+                   trazo.BresenhamLine(d.X + Convert.ToInt32(x) + Convert.ToInt32(tx), d.Y + Convert.ToInt32(y) + Convert.ToInt32(ty), d.X + Convert.ToInt32(x) - Convert.ToInt32(tx)*3, d.Y + Convert.ToInt32(y) + Convert.ToInt32(ty)*3, Color.Red);
+               }
+
+               
+           }
+           else if (d.X > o.X)
+           {
+               trazo.BresenhamLine(o.X + 25, o.Y, d.X - 25, d.Y, Color.White);
+
+               num.crea_numero(px, py - 20, Convert.ToInt32(peso), Color.Blue);
+           }
+           else
+           {
+               trazo.BresenhamLine(o.X - 25, o.Y, d.X + 25, d.Y, Color.White);
+               num.crea_numero(px, py + 20, Convert.ToInt32(peso), Color.Blue);
+           }
+
+           
+
+       }
+
        public void cambiar_posicion_vertice(int xt, int yt, int i)
        {
            Vertice<V, A> v = vertice_en(i-1);
@@ -89,7 +146,7 @@ namespace Proyecto_algoritmos
            return temp;
        }
 
-        public int posicion_vertice(Vertice<V, A> v)
+       public int posicion_vertice(Vertice<V, A> v)
        {
            Vertice<V, A> temp = inicio;
            int cont = 0;
@@ -101,6 +158,34 @@ namespace Proyecto_algoritmos
             }
 
             return cont;
+       }
+
+       public bool detecta_posicion(int x, int y)
+       {
+           Vertice<V, A> temp = inicio;
+           bool noEsta = true;
+
+           while(temp != null)
+           {
+               if(((x+25 >= temp.X -25 && temp.X + 25 >= x+25) || (x-25 >= temp.X -25 && temp.X + 25 >= x-25)) &&  ((y+25 >= temp.Y-25 && temp.Y + 25 >= y+25) || (y-25 >= temp.Y-25 && temp.Y + 25 >= y-25)))
+               {
+                   noEsta = false;
+                   break;
+               }
+               temp = temp.getNext();
+           }
+
+           return noEsta;
+       }
+
+        public Vertice<V, A> busqueda_vertice(V info)
+       {
+           Vertice<V, A> temp = inicio;
+
+           while (!EqualityComparer<V>.Default.Equals(temp.getInfo(), info))
+               temp = temp.getNext();
+
+           return temp;
        }
 
        public void cargarImagen()

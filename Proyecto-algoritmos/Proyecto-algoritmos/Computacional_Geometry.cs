@@ -139,5 +139,115 @@ namespace Proyecto_algoritmos
             }
         }
 
+        public void MidPointLine(int x0, int y0, int x1, int y1, Color color)
+        {
+            int dx, dy, incrE, incrNE, d, x, y;
+
+            dx = x1 - x0;
+            dy = y1 - y0;
+            d = dy * 2 - dx;
+            incrE = dy * 2;
+            incrNE = (dy - dx) * 2;
+            if (x0 > x1)
+            {
+                x = x1;
+                x1 = x0;
+            }
+            else
+                x = x0;
+
+
+
+            y = y0;
+            bmp.SetPixel(x, y, color);
+
+            while (x < x1)
+            {
+                if (d <= 0)
+                {
+                    d += incrE;
+                    x++;
+                }
+                else
+                {
+                    d += incrNE;
+                    x++;
+                    y++;
+                }
+                bmp.SetPixel(x, y, color);
+            }
+        }
+
+        public void BresenhamLine(int x0, int y0, int x1, int y1, Color color)
+        {
+            int x, y, dx, dy, xend, p, incE, incNE, stepX, stepY;
+
+            dx = x1 - x0;
+            dy = y1 - y0;
+
+            if (dy < 0)
+            {
+                dy = -dy;
+                stepY = -1;
+            }
+            else
+                stepY = 1;
+
+            if (dx < 0)
+            {
+                dx = -dx;
+                stepX = -1;
+            }
+            else
+                stepX = 1;
+
+            x = x0;
+            y = y0;
+
+            bmp.SetPixel(x0, y0, color);
+
+            if (dx > dy)
+            {
+                p = 2 * dy - dx;
+                incE = 2 * dy;
+                incNE = 2 * (dy - dx);
+                while (x != x1)
+                {
+                    x += stepX;
+                    if (p < 0)
+                        p += incE;
+                    else
+                    {
+                        y += stepY;
+                        p += incNE;
+                    }
+                    bmp.SetPixel(x, y, color);
+                }
+            }
+            else
+            {
+                p = 2 * dx - dy;
+                incE = 2 * dx;
+                incNE = 2 * (dx - dy);
+                while (y != y1)
+                {
+                    y += stepY;
+                    if (p < 0)
+                        p += incE;
+                    else
+                    {
+                        x += stepX;
+                        p += incNE;
+                    }
+                    bmp.SetPixel(x, y, color);
+                }
+            }
+        }
+
+        public void triangulo(int x, int y, int dx, int dy)
+        {
+            
+        }
+
     }
 }

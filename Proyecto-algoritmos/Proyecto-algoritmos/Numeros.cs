@@ -40,7 +40,7 @@ namespace Proyecto_algoritmos
                     break;
                 case 9: nueve(x, y, color);
                     break;
-                default:
+                default: mas_diez(x, y,n, color);
                     break;
             }
 
@@ -116,5 +116,144 @@ namespace Proyecto_algoritmos
             trazo.DDALine(x - 8, y, x + 8, y, color);
             trazo.DDALine(x - 8, y - 15, x - 8, y, color);
         }
+
+        private void mas_diez(int x, int y,int n, Color color)
+        {
+
+            int nd = n/10;
+            int nu = n%10;
+
+            switch(nd)
+            {
+                case 1: unoD(x-8, y, color);
+                    break;
+                case 2: dosD(x - 8, y, color);
+                    break;
+                case 3: tresD(x - 8, y, color);
+                    break;
+                case 4: cuatroD(x - 8, y, color);
+                    break;
+                case 5: cincoD(x - 8, y, color);
+                    break;
+                case 6: seisD(x - 8, y, color);
+                    break;
+                case 7: sieteD(x - 8, y, color);
+                    break;
+                case 8: ochoD(x - 8, y, color);
+                    break;
+                case 9: nueveD(x - 8, y, color);
+                    break;
+                default:
+                    break;
+            }
+
+            switch(nu)
+            {
+                case 0: cero(x+8, y, color);
+                    break;
+                case 1: unoD(x + 8, y, color);
+                    break;
+                case 2: dosD(x + 8, y, color);
+                    break;
+                case 3: tresD(x + 8, y, color);
+                    break;
+                case 4: cuatroD(x + 8, y, color);
+                    break;
+                case 5: cincoD(x + 8, y, color);
+                    break;
+                case 6: seisD(x + 8, y, color);
+                    break;
+                case 7: sieteD(x + 8, y, color);
+                    break;
+                case 8: ochoD(x  +  8, y, color);
+                    break;
+                case 9: nueveD(x + 8, y, color);
+                    break;
+                default:
+                    break;
+            }
+
+        }
+
+        
+
+        private void cero(int x, int y, Color color)
+        {
+            trazo.DDALine(x - 5, y - 10, x + 5, y - 10, color);
+            trazo.DDALine(x - 5, y - 10, x - 5, y + 10, color);
+            trazo.DDALine(x + 5, y - 10, x + 5, y + 10, color);
+            trazo.DDALine(x - 5, y + 10, x + 5, y + 10, color);
+        }
+
+        private void unoD(int x, int y, Color color)
+        {
+            trazo.DDALine(x, y - 10, x, y + 10, color);
+        }
+        private void dosD(int x, int y, Color color)
+        {
+            trazo.DDALine(x - 5, y - 10, x + 5, y - 10, color);
+            trazo.DDALine(x + 5, y - 10, x + 5, y, color);
+            trazo.DDALine(x - 5, y, x + 5, y, color);
+            trazo.DDALine(x - 5, y, x - 5, y + 10, color);
+            trazo.DDALine(x - 5, y + 10, x + 5, y + 10, color);
+        }
+
+        private void tresD(int x, int y, Color color)
+        {
+            trazo.DDALine(x + 5, y - 10, x + 5, y + 10, color);
+            trazo.DDALine(x - 5, y - 10, x + 5, y - 10, color);
+            trazo.DDALine(x - 5, y, x + 5, y, color);
+            trazo.DDALine(x - 5, y + 10, x + 5, y + 10, color);
+        }
+
+        private void cuatroD(int x, int y, Color color)
+        {
+            trazo.DDALine(x + 5, y - 10, x + 5, y + 10, color);
+            trazo.DDALine(x - 5, y, x + 5, y, color);
+            trazo.DDALine(x - 5, y - 10, x - 5, y, color);
+        }
+
+        private void cincoD(int x, int y, Color color)
+        {
+            trazo.DDALine(x - 5, y - 10, x + 5, y - 10, color);
+            trazo.DDALine(x - 5, y - 10, x - 5, y, color);
+            trazo.DDALine(x - 5, y, x + 5, y, color);
+            trazo.DDALine(x + 5, y, x + 5, y + 10, color);
+            trazo.DDALine(x - 5, y + 10, x + 5, y + 10, color);
+        }
+
+        private void seisD(int x, int y, Color color)
+        {
+            trazo.DDALine(x - 5, y - 10, x - 5, y + 10, color);
+            trazo.DDALine(x - 5, y, x + 5, y, color);
+            trazo.DDALine(x - 5, y + 10, x + 5, y + 10, color);
+            trazo.DDALine(x + 5, y, x + 5, y + 10, color);
+            trazo.DDALine(x - 5, y - 10, x + 5, y - 10, color);
+        }
+
+        private void sieteD(int x, int y, Color color)
+        {
+            trazo.DDALine(x + 5, y - 10, x + 5, y + 10, color);
+            trazo.DDALine(x - 5, y, x + 5, y, color);
+            trazo.DDALine(x - 5, y - 10, x + 5, y - 10, color);
+        }
+
+        private void ochoD(int x, int y, Color color)
+        {
+            trazo.DDALine(x - 5, y - 10, x + 5, y - 10, color);
+            trazo.DDALine(x + 5, y - 10, x + 5, y + 10, color);
+            trazo.DDALine(x - 5, y - 10, x - 5, y + 10, color);
+            trazo.DDALine(x - 5, y, x + 5, y, color);
+            trazo.DDALine(x - 5, y + 10, x + 5, y + 10, color);
+        }
+
+        private void nueveD(int x, int y, Color color)
+        {
+            trazo.DDALine(x + 5, y - 10, x + 5, y + 10, color);
+            trazo.DDALine(x - 5, y - 10, x + 5, y - 10, color);
+            trazo.DDALine(x - 5, y, x + 5, y, color);
+            trazo.DDALine(x - 5, y - 10, x - 5, y, color);
+        }   
+
     }
 }
