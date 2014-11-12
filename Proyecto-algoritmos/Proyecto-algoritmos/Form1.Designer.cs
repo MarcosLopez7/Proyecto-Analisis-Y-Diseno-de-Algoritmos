@@ -103,8 +103,9 @@
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(172, 41);
             this.button6.TabIndex = 6;
-            this.button6.Text = "button6";
+            this.button6.Text = "Eliminar Arista";
             this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // button7
             // 
@@ -112,7 +113,7 @@
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(172, 41);
             this.button7.TabIndex = 7;
-            this.button7.Text = "button7";
+            this.button7.Text = "Eliminar";
             this.button7.UseVisualStyleBackColor = true;
             // 
             // button8

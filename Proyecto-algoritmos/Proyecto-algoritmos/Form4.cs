@@ -21,6 +21,11 @@ namespace Proyecto_algoritmos
 
         private void Form4_Load(object sender, EventArgs e)
         {
+            if (n == 0)
+            {
+                MessageBox.Show("No hay vertices insertados");
+                this.Close();
+            }
 
         }
 
@@ -44,8 +49,13 @@ namespace Proyecto_algoritmos
 
                 if (100 > p && p > 1 && n >= d && d > 0 && n >= o && o > 0)
                 {
-                    f1.inserta_arista(o, d, p);
-                    this.Close();
+                    if(!f1.detecta_arista(o, d))
+                    {
+                        f1.inserta_arista(o, d, p);
+                        this.Close();
+                    }
+                    else
+                        MessageBox.Show("La arista ya existe");
                 }
                 else
                     MessageBox.Show("El rango de los campos va:\nVértice origen y Vértce destino entre 1 y " + n + "\nPeso entre 1 y 99");

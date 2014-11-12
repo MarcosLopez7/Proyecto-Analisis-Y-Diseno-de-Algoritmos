@@ -17,6 +17,7 @@ namespace Proyecto_algoritmos
         public int y;
         public bool aceptado = true;
         public Form1 f1;
+        public int n;
         public Form2()
         {
             InitializeComponent();
@@ -24,7 +25,7 @@ namespace Proyecto_algoritmos
 
         private void Form2_Load(object sender, EventArgs e)
         {
-
+            
         }
 
         private void button2_Click(object sender, EventArgs e)

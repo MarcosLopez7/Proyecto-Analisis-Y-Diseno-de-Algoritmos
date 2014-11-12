@@ -244,9 +244,11 @@ namespace Proyecto_algoritmos
             }
         }
 
-        public void triangulo(int x, int y, int dx, int dy)
+        public void circulo_relleno(int x, int y, int r, Color color)
         {
-            
+            for(int i = r; i > 0; i--)
+                MidPointCircle(x, y, i, color);
+          
         }
 
     }

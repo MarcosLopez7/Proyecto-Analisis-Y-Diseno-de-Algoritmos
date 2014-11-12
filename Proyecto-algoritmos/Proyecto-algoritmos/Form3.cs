@@ -27,7 +27,6 @@ namespace Proyecto_algoritmos
                 this.Close();
             }
 
-            
         }
 
         private void button2_Click(object sender, EventArgs e)
