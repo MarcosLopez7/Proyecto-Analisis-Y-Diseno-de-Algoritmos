@@ -113,8 +113,9 @@
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(172, 41);
             this.button7.TabIndex = 7;
-            this.button7.Text = "Eliminar";
+            this.button7.Text = "Eliminar Vértice";
             this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
             // button8
             // 

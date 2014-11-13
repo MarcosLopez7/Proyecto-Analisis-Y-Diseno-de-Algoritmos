@@ -75,6 +75,7 @@ namespace Proyecto_algoritmos
             Form4 formulon = new Form4();
             formulon.f1 = this;
             formulon.n = grafo.Num_Nodos;
+            formulon.i = i;
             formulon.Show();
         }
 
@@ -98,6 +99,22 @@ namespace Proyecto_algoritmos
         public void elimina_arista(int o, int d)
         {
             grafo.elimina_arista(grafo.busqueda_vertice(o), grafo.busqueda_vertice(d));
+            grafo.cargarImagen();
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            Form6 formulon = new Form6();
+            formulon.f1 = this;
+            formulon.n = grafo.Num_Nodos;
+            formulon.i = i;
+            formulon.Show();
+        }
+
+        /*Método que se ejecuta en el botón 7*/
+        public void elimina_vertice(int v, bool slow)
+        {
+            grafo.elimina_vertice(grafo.busqueda_vertice(v), slow);
             grafo.cargarImagen();
         }
     }

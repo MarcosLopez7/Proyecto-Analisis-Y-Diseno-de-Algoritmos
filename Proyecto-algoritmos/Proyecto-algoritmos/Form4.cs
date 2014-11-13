@@ -14,6 +14,7 @@ namespace Proyecto_algoritmos
     {
         public Form1 f1;
         public int n;
+        public int i;
         public Form4()
         {
             InitializeComponent();
@@ -47,7 +48,7 @@ namespace Proyecto_algoritmos
                 int d = Convert.ToInt32(textBox2.Text);
                 int p = Convert.ToInt32(textBox3.Text);
 
-                if (100 > p && p > 1 && n >= d && d > 0 && n >= o && o > 0)
+                if (100 > p && p >= 1 && i >= d && d > 0 && i >= o && o > 0)
                 {
                     if(!f1.detecta_arista(o, d))
                     {
@@ -58,7 +59,7 @@ namespace Proyecto_algoritmos
                         MessageBox.Show("La arista ya existe");
                 }
                 else
-                    MessageBox.Show("El rango de los campos va:\nVértice origen y Vértce destino entre 1 y " + n + "\nPeso entre 1 y 99");
+                    MessageBox.Show("El rango de los campos va:\nVértice origen y Vértce destino entre 1 y " + i + "\nPeso entre 1 y 99");
             }
             else
                 MessageBox.Show("Tiene que escribir en los campos");

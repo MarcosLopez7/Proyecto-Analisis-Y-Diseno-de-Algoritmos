@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing;
 using System.ComponentModel;
+using System.Threading;
 
 namespace Proyecto_algoritmos
 {
@@ -63,7 +64,7 @@ namespace Proyecto_algoritmos
            }
            num_nodos++;
            trazo.MidPointCircle(x, y, 25, Color.White);
-           num.crea_numero(x, y, posicion_vertice(v) + 1, Color.White);
+           num.crea_numero(x, y, Convert.ToInt32(v.getInfo()), Color.White);
 
        }
 
@@ -375,12 +376,94 @@ namespace Proyecto_algoritmos
                    a.setNext(null);
                }
 
-               //a = null;
+               a = null;
            }
 
-            
        }
 
+        public void elimina_vertice(Vertice<V, A> v, bool slow)
+        {
+            Vertice<V, A> temp = inicio;
+            Vertice<V, A> previo = null;
+            Arista<V, A> a;
+
+            while(temp != null)
+            {
+                a = temp.getArista();
+                if(temp == v)
+                {
+                    if(a != null)
+                    {
+                        Arista<V, A> tempA = a;
+
+                        while(tempA != null)
+                        {
+                            a = a.getNext();
+                            elimina_arista(temp, tempA.getDestino());
+                            tempA = null;
+                            tempA = a;
+                            slow_motion(slow);
+                        }
+                    }
+                }
+                else
+                {
+                    if (a != null)
+                    {
+                        Arista<V, A> tempA = a;
+
+                        while (tempA != null)
+                        {
+                            a = a.getNext();
+                            if(tempA.getDestino() == v)
+                            {
+                                elimina_arista(temp, tempA.getDestino());
+                                tempA = null;
+                                slow_motion(slow);
+                            }
+                            tempA = a;
+                        }
+                    }
+                }
+
+                temp = temp.getNext();
+            }
+
+            trazo.MidPointCircle(v.X, v.Y, 25, Color.Black);
+            num.crea_numero(v.X, v.Y, Convert.ToInt32(v.getInfo()), Color.Black);
+
+            temp = inicio;
+
+            while(temp.getNext() != null && temp != v)
+            {
+                previo = temp;
+                temp = temp.getNext();
+            }
+
+            if (previo == null)
+                inicio = temp.getNext();
+            else
+            {
+                previo.setNext(temp.getNext());
+                temp.setNext(null);
+                temp = null;
+            }
+            num_nodos--;
+        }
+
+        public void slow_motion(bool si)
+        {
+            if (si)
+            {
+                Thread.Sleep(500);
+                cargarImagen();
+            }
+        }
+
+        public void paso_a_paso(bool si)
+        {
+
+        }
        
     }
 }

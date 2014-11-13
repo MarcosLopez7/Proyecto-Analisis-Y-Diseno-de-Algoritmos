@@ -18,6 +18,7 @@ namespace Proyecto_algoritmos
         public bool aceptado = true;
         public Form1 f1;
         public int n;
+
         public Form2()
         {
             InitializeComponent();
