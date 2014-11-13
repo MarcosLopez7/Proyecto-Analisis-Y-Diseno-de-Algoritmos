@@ -302,7 +302,7 @@ namespace Proyecto_algoritmos
        {
            Arista<V, A> a = o.getArista();
            Arista<V, A> previo = null;
-            bool noEsta = false;
+           bool esta = false;
 
            while (a != null && a.getDestino() != d)
            {
@@ -319,13 +319,13 @@ namespace Proyecto_algoritmos
                    //if(!EqualityComparer<V>.Default.Equals(temp.getInfo(), info))
                    if (tempA.getDestino() == o)
                    {
-                       noEsta = true;
+                       esta = true;
                        break;
                    }
                    tempA = tempA.getNext();
                }
 
-               if(!noEsta)
+               if(!esta)
                     pinta_arista(o, d, a, a.getPeso(),0, Color.Black, Color.Black);
                else
                {
@@ -368,14 +368,14 @@ namespace Proyecto_algoritmos
                }
 
                if (previo == null)
-                   o.setAristas(null);
+                   o.setAristas(a.getNext());
                else
                {
                    previo.setNext(a.getNext());
                    a.setNext(null);
                }
 
-               a = null;
+               //a = null;
            }
 
             
