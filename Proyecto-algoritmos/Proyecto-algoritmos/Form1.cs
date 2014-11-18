@@ -47,7 +47,7 @@ namespace Proyecto_algoritmos
         public void cambiarVertice(int x, int y, int i)
         {
 
-            grafo.cambiar_posicion_vertice(x, y, grafo.busqueda_vertice(i));
+            grafo.cambiar_posicion_vertice(x, y, grafo.busqueda_vertice(i), false);
             grafo.cargarImagen();
         }
 
@@ -65,7 +65,7 @@ namespace Proyecto_algoritmos
         private void button9_Click(object sender, EventArgs e)
         {
           Form3 formulon = new Form3();
-          formulon.n = grafo.Num_Nodos;
+          formulon.n = i;
           formulon.f1 = this;
           formulon.Show();
         }
@@ -115,6 +115,37 @@ namespace Proyecto_algoritmos
         public void elimina_vertice(int v, bool slow)
         {
             grafo.elimina_vertice(grafo.busqueda_vertice(v), slow);
+            grafo.cargarImagen();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Form7 formulon = new Form7();
+            formulon.f1 = this;
+            formulon.n = grafo.Num_Nodos;
+            formulon.i = i;
+            formulon.Show();
+        }
+
+        /*Método que se ejecuta en el botón 3*/
+        public void bfs(int v, bool slow)
+        {
+            grafo.BFS(grafo.busqueda_vertice(v), slow);
+            grafo.cargarImagen();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Form8 formulon = new Form8();
+            formulon.f1 = this;
+            formulon.n = grafo.Num_Nodos;
+            formulon.i = i;
+            formulon.Show();
+        }
+
+        public void dfs(int v, bool slow)
+        {
+            grafo.DFS(grafo.busqueda_vertice(v), slow);
             grafo.cargarImagen();
         }
     }

@@ -21,10 +21,12 @@ namespace Proyecto_algoritmos
        public Computacional_Geometry trazo;
        private PictureBox imagen;
        private Numeros num;
+       private List<bool> visitadoDFS;
 
        public Grafo()
        {
            inicio = null;
+           visitadoDFS = new List<bool>();
        }
 
        public int Num_Nodos
@@ -39,6 +41,7 @@ namespace Proyecto_algoritmos
            imagen = i;
            trazo = new Computacional_Geometry(imagen,1170,730);
            num = new Numeros(trazo);
+           visitadoDFS = new List<bool>();
        }
 
         public void setImagen(PictureBox i)
@@ -89,11 +92,14 @@ namespace Proyecto_algoritmos
                    a = a.getNext();
                }
 
-               if(!noEsta)
-                    pinta_arista(o, d, nueva, peso,0, Color.White, Color.Blue);
+               if (!noEsta)
+               {
+                   nueva.Primero = true;
+                   pinta_arista(o, d, nueva, peso, 0, Color.White, Color.Blue);
+               }
                else
                {
-                   pinta_arista(d, o, nueva, a.getPeso(),0, Color.Black, Color.Black);
+                   pinta_arista(d, o, nueva, a.getPeso(), 0, Color.Black, Color.Black);
 
                    if (o.X > d.X)
                    {
@@ -196,27 +202,308 @@ namespace Proyecto_algoritmos
            }
        }
 
-        public void pinta_arista(Arista<V, A> a, Color color, Color flecha)
+       public void pinta_arista(Vertice<V, A> o, Vertice<V, A> d, Color w, Color b, Color g, Color y)
        {
-           trazo.BresenhamLine(a.OX, a.OY, a.DX, a.DY, color);
-           num.crea_numero((a.OX + a.DX) / 2, (a.OY + a.DY) / 2, Convert.ToInt32(a.getPeso()), flecha);
-           double xx = Math.Sin(a.Angulo) * 32;
-           double yy = Math.Cos(a.Angulo) * 32;
-           trazo.circulo_relleno(a.DX + Convert.ToInt32(xx), a.DY + Convert.ToInt32(yy), 7, flecha);
+           Arista<V, A> a = o.getArista();
+           bool esta = false;
+
+           while (a != null && a.getDestino() != d)
+               a = a.getNext();
+           
+
+           if (a != null)
+           {
+               Arista<V, A> tempA = d.getArista();
+
+               while (tempA != null)
+               {
+                   //if(!EqualityComparer<V>.Default.Equals(temp.getInfo(), info))
+                   if (tempA.getDestino() == o)
+                   {
+                       esta = true;
+                       break;
+                   }
+                   tempA = tempA.getNext();
+               }
+
+               if (!esta)
+               {
+                   a.Primero = true;
+                   pinta_arista(o, d, a, a.getPeso(), 0, w, b);
+               }
+               else
+               {
+                   //pinta_arista(d, o, tempA, tempA.getPeso(),0, Color.Black, Color.Black);
+
+                   if (o.X > d.X)
+                   {
+                       if (o.Y > d.Y)
+                       {
+                           if (!a.Primero)
+                           {
+                               pinta_arista(d, o, tempA, tempA.getPeso(), 5, w, g);
+
+                               pinta_arista(o, d, a, a.getPeso(), -5, w, y);
+                           }
+                           else
+                           {
+                               pinta_arista(d, o, tempA, tempA.getPeso(), -5, w, g);
+
+                               pinta_arista(o, d, a, a.getPeso(), 5, w, y);
+                           }
+                       }
+                       else
+                       {
+                           if (!a.Primero || (o.Y - d.Y == 0))
+                           {
+                               pinta_arista(d, o, tempA, tempA.getPeso(), -5, w, g);
+                               pinta_arista(o, d, a, a.getPeso(), 5, w, y);
+                           }
+                           else
+                           {
+                               pinta_arista(d, o, tempA, tempA.getPeso(), 5, w, g);
+                               pinta_arista(o, d, a, a.getPeso(), -5, w, y);
+                           }
+
+
+                       }
+                   }
+                   else
+                   {
+                       if (o.Y > d.Y)
+                       {
+                           if (!a.Primero|| (o.X - d.X == 0))
+                           {
+                               pinta_arista(d, o, tempA, tempA.getPeso(), -5, w, g);
+                               pinta_arista(o, d, a, a.getPeso(), 5, w, y);
+                           }
+                           else
+                           {
+                               pinta_arista(d, o, tempA, tempA.getPeso(), 5, w, g);
+                               pinta_arista(o, d, a, a.getPeso(), -5, w, y);
+                           }
+
+
+
+                       }
+                       else
+                       {
+                           if (!a.Primero || (o.Y - d.Y == 0)|| (o.X - d.X == 0))
+                           {
+                               pinta_arista(d, o, tempA, tempA.getPeso(), 5, w, g);
+                               pinta_arista(o, d, a, a.getPeso(), -5, w, y);
+                           }
+                           else
+                           {
+                               pinta_arista(d, o, tempA, tempA.getPeso(), -5, w, g);
+                               pinta_arista(o, d, a, a.getPeso(), 5, w, y);
+                           }
+
+                       }
+                   }
+               }
+
+           }
        }
 
-       public void cambiar_posicion_vertice(int xt, int yt, Vertice<V, A> ver)
+       public void pinta_arista(Vertice<V, A> o, Vertice<V, A> d, Color w, Color b, Color g, Color y, bool soloUno)
        {
+           Arista<V, A> a = o.getArista();
+           bool esta = false;
+
+           while (a != null && a.getDestino() != d)
+               a = a.getNext();
+
+
+           if (a != null)
+           {
+               Arista<V, A> tempA = d.getArista();
+
+               while (tempA != null)
+               {
+                   //if(!EqualityComparer<V>.Default.Equals(temp.getInfo(), info))
+                   if (tempA.getDestino() == o)
+                   {
+                       esta = true;
+                       break;
+                   }
+                   tempA = tempA.getNext();
+               }
+
+               if (!esta)
+                   pinta_arista(o, d, a, a.getPeso(), 0, w, b);
+               else
+               {
+                   //pinta_arista(d, o, tempA, tempA.getPeso(),0, Color.Black, Color.Black);
+
+                   if (o.X > d.X)
+                   {
+                       if (o.Y > d.Y)
+                       {
+                           if (!a.Primero)
+                           {
+                               if(soloUno)
+                               pinta_arista(d, o, tempA, tempA.getPeso(), 5, w, g);
+
+                               pinta_arista(o, d, a, a.getPeso(), -5, w, y);
+                           }
+                           else
+                           {
+                               if (soloUno)
+                               pinta_arista(d, o, tempA, tempA.getPeso(), -5, w, g);
+
+                               pinta_arista(o, d, a, a.getPeso(), 5, w, y);
+                           }
+                       }
+                       else
+                       {
+                           if (!a.Primero || (o.Y - d.Y == 0))
+                           {
+                               if (soloUno)
+                               pinta_arista(d, o, tempA, tempA.getPeso(), -5, w, g);
+                               pinta_arista(o, d, a, a.getPeso(), 5, w, y);
+                           }
+                           else
+                           {
+                               if (soloUno)
+                               pinta_arista(d, o, tempA, tempA.getPeso(), 5, w, g);
+                               pinta_arista(o, d, a, a.getPeso(), -5, w, y);
+                           }
+
+
+                       }
+                   }
+                   else
+                   {
+                       if (o.Y > d.Y)
+                       {
+                           if (!a.Primero || (o.X - d.X == 0))
+                           {
+                               if (soloUno)
+                               pinta_arista(d, o, tempA, tempA.getPeso(), -5, w, g);
+                               pinta_arista(o, d, a, a.getPeso(), 5, w, y);
+                           }
+                           else
+                           {
+                               if (soloUno)
+                               pinta_arista(d, o, tempA, tempA.getPeso(), 5, w, g);
+                               pinta_arista(o, d, a, a.getPeso(), -5, w, y);
+                           }
+
+
+
+                       }
+                       else
+                       {
+                           if (!a.Primero || (o.Y - d.Y == 0) || (o.X - d.X == 0))
+                           {
+                               if (soloUno)
+                               pinta_arista(d, o, tempA, tempA.getPeso(), 5, w, g);
+                               pinta_arista(o, d, a, a.getPeso(), -5, w, y);
+                           }
+                           else
+                           {
+                               if (soloUno)
+                               pinta_arista(d, o, tempA, tempA.getPeso(), -5, w, g);
+                               pinta_arista(o, d, a, a.getPeso(), 5, w, y);
+                           }
+
+                       }
+                   }
+               }
+
+           }
+       }
+
+       public void cambiar_posicion_vertice(int xt, int yt, Vertice<V, A> ver, bool slow)
+       {
+
+           Vertice<V, A> temp = inicio;
            Vertice<V, A> v = ver;
+           Arista<V, A> a;
+
+           while (temp != null)
+           {
+               a = temp.getArista();
+               if (temp == v)
+               {
+                   if (a != null)
+                   {
+
+                       while (a != null)
+                       {
+                           pinta_arista(temp, a.getDestino(), Color.Black, Color.Black, Color.Black, Color.Black);
+                           a = a.getNext();
+                           slow_motion(slow);
+                       }
+                   }
+               }
+               else
+               {
+                   if (a != null)
+                   {
+
+                       while (a != null)
+                       {
+                           if (a.getDestino() == v)
+                           {
+                               pinta_arista(temp, a.getDestino(), Color.Black, Color.Black, Color.Black, Color.Black);
+                               slow_motion(slow);
+                           }
+                           a = a.getNext();
+                       }
+                   }
+               }
+
+               temp = temp.getNext();
+           }
 
            trazo.MidPointCircle(v.X, v.Y, 25, Color.Black);
-           num.crea_numero(v.X, v.Y, posicion_vertice(v) + 1, Color.Black);
+           num.crea_numero(v.X, v.Y, Convert.ToInt32(v.getInfo()), Color.Black);
 
            v.X = xt;
            v.Y = yt;
 
            trazo.MidPointCircle(v.X, v.Y, 25, Color.White);
-           num.crea_numero(v.X, v.Y, posicion_vertice(v) + 1, Color.White);
+           num.crea_numero(v.X, v.Y, Convert.ToInt32(v.getInfo()), Color.White);
+
+            temp = inicio;
+
+           while (temp != null)
+           {
+               a = temp.getArista();
+               if (temp == v)
+               {
+                   if (a != null)
+                   {
+
+                       while (a != null)
+                       {
+                           pinta_arista(temp, a.getDestino(), Color.White, Color.Blue, Color.Green, Color.Yellow);
+                           a = a.getNext();
+                           slow_motion(slow);
+                       }
+                   }
+               }
+               else
+               {
+                   if (a != null)
+                   {
+
+                       while (a != null)
+                       {
+                           if (a.getDestino() == v)
+                           {
+                               pinta_arista(temp, a.getDestino(), Color.White, Color.Blue, Color.Green, Color.Yellow);
+                               slow_motion(slow);
+                           }
+                           a = a.getNext();
+                       }
+                   }
+               }
+
+               temp = temp.getNext();
+           }
        }
 
        public Vertice<V, A> vertice_en(int i)
@@ -336,34 +623,72 @@ namespace Proyecto_algoritmos
                    {
                        if (o.Y > d.Y)
                        {
-                           pinta_arista(d, o, tempA, tempA.getPeso(), 5, Color.Black, Color.Black);
-                           
-                           pinta_arista(o, d, a, a.getPeso(), -5, Color.Black, Color.Black);
+                           if (!a.Primero)
+                           {
+                               pinta_arista(d, o, tempA, tempA.getPeso(), 5, Color.Black, Color.Black);
+
+                               pinta_arista(o, d, a, a.getPeso(), -5, Color.Black, Color.Black);
+                           }
+                           else
+                           {
+                               pinta_arista(d, o, tempA, tempA.getPeso(), -5, Color.Black, Color.Black);
+
+                               pinta_arista(o, d, a, a.getPeso(), 5, Color.Black, Color.Black);
+                           }
                            pinta_arista(d, o, tempA, tempA.getPeso(), 0, Color.White, Color.Blue);
+                           tempA.Primero = true;
                        }
                        else
                        {
-                           pinta_arista(d, o, tempA, tempA.getPeso(), -5, Color.Black, Color.Black);
-                           
-                           pinta_arista(o, d, a, a.getPeso(), 5, Color.Black, Color.Black);
+                           if (!a.Primero || (o.Y - d.Y == 0))
+                           {
+                               pinta_arista(d, o, tempA, tempA.getPeso(), -5, Color.Black, Color.Black);
+                               pinta_arista(o, d, a, a.getPeso(), 5, Color.Black, Color.Black);
+                           }
+                           else
+                           {
+                               pinta_arista(d, o, tempA, tempA.getPeso(), 5, Color.Black, Color.Black);
+                               pinta_arista(o, d, a, a.getPeso(), -5, Color.Black, Color.Black);
+                           }
+
                            pinta_arista(d, o, tempA, tempA.getPeso(), 0, Color.White, Color.Blue);
+                           tempA.Primero = true;
                        }
                    }
                    else
                    {
-                       if (o.Y > d.Y)
+                       if (o.Y > d.Y )
                        {
-                           pinta_arista(d, o, tempA, tempA.getPeso(), -5, Color.Black, Color.Black);
+                           if (!a.Primero || (o.X - d.X == 0))
+                           {
+                               pinta_arista(d, o, tempA, tempA.getPeso(), -5, Color.Black, Color.Black);
+                               pinta_arista(o, d, a, a.getPeso(), 5, Color.Black, Color.Black);
+                           }
+                           else
+                           {
+                               pinta_arista(d, o, tempA, tempA.getPeso(), 5, Color.Black, Color.Black);
+                               pinta_arista(o, d, a, a.getPeso(), -5, Color.Black, Color.Black);
+                           }
                            
-                           pinta_arista(o, d, a, a.getPeso(), 5, Color.Black, Color.Black);
+
                            pinta_arista(d, o, tempA, tempA.getPeso(), 0, Color.White, Color.Blue);
+                           tempA.Primero = true;
                        }
                        else
                        {
-                           pinta_arista(d, o, tempA, tempA.getPeso(), 5, Color.Black, Color.Black);
-                           
-                           pinta_arista(o, d, a, a.getPeso(), -5, Color.Black, Color.Black);
+                           if (!a.Primero || (o.Y - d.Y == 0) || (o.X - d.X == 0))
+                           {
+                               pinta_arista(d, o, tempA, tempA.getPeso(), 5, Color.Black, Color.Black);
+                               pinta_arista(o, d, a, a.getPeso(), -5, Color.Black, Color.Black);
+                           }
+                           else
+                           {
+                               pinta_arista(d, o, tempA, tempA.getPeso(), -5, Color.Black, Color.Black);
+                               pinta_arista(o, d, a, a.getPeso(), 5, Color.Black, Color.Black);
+                           }
+
                            pinta_arista(d, o, tempA, tempA.getPeso(), 0, Color.White, Color.Blue);
+                           tempA.Primero = true;
                        }
                    }
                }
@@ -451,11 +776,133 @@ namespace Proyecto_algoritmos
             num_nodos--;
         }
 
+        public void BFS(Vertice<V, A> v, bool slow)
+        {
+
+            List<bool> visitado = new List<bool>();
+            Queue<Vertice<V, A>> q = new Queue<Vertice<V,A>>();
+            Vertice<V, A> u;
+            Arista<V, A> a;
+            Vertice<V, A> n;
+
+            for (int i = 0; i < num_nodos; i++)
+                visitado.Add(false);
+
+            visitado[posicion_vertice(v)] = true;
+            q.Enqueue(v);
+
+            while(q.Count != 0)
+            {
+                u = q.Dequeue();
+                a = u.getArista();
+                trazo.MidPointCircle(u.X, u.Y, 25, Color.Yellow);
+                slow_motion(slow);
+
+                while (a != null)
+                {
+                    n = a.getDestino();
+                    if (visitado[posicion_vertice(n)] == false)
+                    {
+                        visitado[posicion_vertice(n)] = true;
+                        pinta_arista(u, n, Color.Red, Color.White, Color.White, Color.White, false);
+                        trazo.MidPointCircle(n.X, n.Y, 25, Color.Red);
+                        q.Enqueue(n);
+                    }
+                    else
+                        pinta_arista(u, n, Color.Gray, Color.Gray, Color.Gray, Color.Gray, false);
+
+                        slow_motion(slow);
+                        a = a.getNext();
+                }
+                trazo.MidPointCircle(u.X, u.Y, 25, Color.Red);
+
+            }
+
+            Thread.Sleep(2000);
+
+            restaura_arista();
+
+        }
+
+
+
+        public void DFS(Vertice<V, A> v, bool slow)
+        {
+
+            if(visitadoDFS.Count == 0)
+            for (int i = 0; i < num_nodos; i++)
+                visitadoDFS.Add(false);
+            else
+                for (int i = 0; i < num_nodos; i++)
+                    visitadoDFS[i] = false;
+
+            dfs(v, slow);
+            Thread.Sleep(3000);
+            restaura_arista();
+        }
+
+        private void dfs(Vertice<V, A> v, bool slow)
+        {
+
+            visitadoDFS[posicion_vertice(v)] = true;
+            Arista<V, A> a = v.getArista();
+            Vertice<V, A> w;
+            trazo.MidPointCircle(v.X, v.Y, 25, Color.Yellow);
+            slow_motion(slow);
+            while(a != null)
+            {
+                w = a.getDestino();
+                if (!visitadoDFS[posicion_vertice(w)])
+                {
+                    pinta_arista(v, w, Color.Red, Color.White, Color.White, Color.White, false);
+                    trazo.MidPointCircle(v.X, v.Y, 25, Color.Red);
+                    slow_motion(slow);
+                    dfs(w, slow);
+                    trazo.MidPointCircle(v.X, v.Y, 25, Color.Yellow);
+                    slow_motion(slow);
+                }
+                else
+                {
+                    pinta_arista(v, w, Color.Gray, Color.Gray, Color.Gray, Color.Gray, false);
+                    slow_motion(slow);
+                }
+
+                a = a.getNext();
+            }
+            trazo.MidPointCircle(v.X, v.Y, 25, Color.Red);
+            slow_motion(slow);
+        }
+
+        public void restaura_arista()
+        {
+
+            Vertice<V, A> temp = inicio;
+           Arista<V, A> a;
+
+           while (temp != null)
+           {
+               a = temp.getArista();
+
+              while (a != null)
+              {
+                  pinta_arista(temp, a.getDestino(), Color.White, Color.Blue, Color.Green, Color.Yellow);
+                  a = a.getNext();
+              }
+              trazo.MidPointCircle(temp.X, temp.Y, 25, Color.White);
+              temp = temp.getNext();
+           }
+
+           cargarImagen();
+
+        }
+
+      
+
         public void slow_motion(bool si)
         {
             if (si)
             {
-                Thread.Sleep(500);
+                Thread.Sleep(1500);
                 cargarImagen();
             }
         }

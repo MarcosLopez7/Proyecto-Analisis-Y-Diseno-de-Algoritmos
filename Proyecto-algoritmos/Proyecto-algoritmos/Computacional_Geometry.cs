@@ -34,6 +34,7 @@ namespace Proyecto_algoritmos
         public void setImage()
         {
             imagen.Image = bmp;
+            imagen.Refresh();
         }
 
         public void MidPointCircle(int x0, int y0, int radius, Color color)

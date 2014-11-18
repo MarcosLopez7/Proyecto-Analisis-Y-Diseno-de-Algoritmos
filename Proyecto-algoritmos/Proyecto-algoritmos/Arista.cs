@@ -15,12 +15,19 @@ namespace Proyecto_algoritmos
         private int oy;
         private int dx;
         private int dy;
+        private bool primero;
         private double angulo;
 
         public int OX
         {
             get { return ox; }
             set { ox = value; }
+        }
+
+        public bool Primero
+        {
+            get { return primero;}
+            set { primero = value; }
         }
 
         public double Angulo
@@ -51,6 +58,7 @@ namespace Proyecto_algoritmos
             this.peso = p;
             this.destino = d;
             siguiente = null;
+            primero = false;
         }
 
         public A getPeso()
