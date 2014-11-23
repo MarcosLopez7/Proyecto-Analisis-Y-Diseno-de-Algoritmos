@@ -15,8 +15,9 @@ namespace Proyecto_algoritmos
        private Vertice<V, A> inicio;
        private int num_nodos;
        private List<int> distancia;
-       private List<int> visitados;
-       private List<Vertice<V, A>> lista;
+       private List<bool> visitados;
+       private List<Vertice<int, int>> lista;
+       private List<int> cola; 
        private List<int> previo;
        public Computacional_Geometry trazo;
        private PictureBox imagen;
@@ -29,6 +30,10 @@ namespace Proyecto_algoritmos
            inicio = null;
            visitadoDFS = new List<bool>();
            visitadoPrim = new List<bool>();
+           distancia = new List<int>();
+           visitados = new List<bool>();
+           previo = new List<int>();
+           cola = new List<int>();
        }
 
        public int Num_Nodos
@@ -45,6 +50,10 @@ namespace Proyecto_algoritmos
            num = new Numeros(trazo);
            visitadoDFS = new List<bool>();
            visitadoPrim = new List<bool>();
+           distancia = new List<int>();
+           visitados = new List<bool>();
+           previo = new List<int>();
+           cola = new List<int>();
        }
 
         public void setImagen(PictureBox i)
@@ -1002,6 +1011,24 @@ namespace Proyecto_algoritmos
 
         public List<List<int>> kruskal(bool slow, int tiempo)
         {
+
+            Vertice<V, A> tempv = inicio;
+            Arista<V, A> av;
+
+            while (tempv != null)
+            {
+                av = tempv.getArista();
+
+                while (av != null)
+                {
+                    pinta_arista(tempv, av.getDestino(), Color.Gray, Color.Gray, Color.Gray, Color.Gray);
+                    av = av.getNext();
+                }
+                tempv = tempv.getNext();
+            }
+
+            cargarImagen();
+
             List<List<int>> arbol = new List<List<int>>();
             List<int> pertenece = new List<int>();
 
@@ -1044,6 +1071,8 @@ namespace Proyecto_algoritmos
                 }
 
                 pinta_arista(vA, vB, Color.Red, Color.White, Color.White, Color.White, false);
+                trazo.MidPointCircle(vA.X, vA.Y, 25, Color.Red);
+                trazo.MidPointCircle(vB.X, vB.Y, 25, Color.Red);
                 slow_motion(slow, tiempo);
 
                 if(pertenece[posicion_vertice(vA)] != pertenece[posicion_vertice(vB)])
@@ -1070,6 +1099,209 @@ namespace Proyecto_algoritmos
             return arbol;
         }
 
+        /*public List<int> dijkstra(Vertice<V, A> i, Grafo<int, int> grafito)
+        {
+            iniciar();
+            Vertice<int, int> vertice = new Vertice<int, int>(posicion_vertice(i), 0, i.X, i.Y);
+            lista.Add(vertice);
+
+            distancia[posicion_vertice(i)] = 0;
+
+            int actual, adyacente, peso;
+            Vertice<int, int> temp;
+
+            while(lista.Count != 0)
+            {
+                lista.Sort();
+                actual = lista[0].getInfo();
+                temp = lista[0];
+                lista.RemoveAt(0);
+                grafito.trazo.MidPointCircle(vertice_en(temp).X, vertice_en(temp).Y, 25, Color.Red);
+
+
+                if (visitados[actual])
+                    continue;
+                visitados[actual] = true;
+                Arista<int, int> tempA = temp.getArista();
+
+                for(int j = 0; j < temp.numeroAristas(temp); j++)
+                {
+                    adyacente = grafito.posicion_vertice(tempA.getDestino());
+                    peso = tempA.getPeso();
+                    if (!visitados[adyacente])
+                        relajacion(actual, adyacente, peso);
+                    tempA = tempA.getNext();
+                }
+            }
+
+            return distancia;
+
+        }*/
+
+        public List<int> dijkstra(Vertice<V, A> i, bool slow, int tiempo)
+        {
+            iniciar();
+            Vertice<V, A> vertice = i;
+            cola.Add(posicion_vertice(vertice));
+
+            distancia[posicion_vertice(i)] = 0;
+
+            int actual, adyacente, peso;
+            Vertice<V, A> temp;
+
+            while (cola.Count != 0)
+            {
+                cola.Sort();
+                temp = vertice_en(cola[0]);
+                actual = posicion_vertice(temp);
+                cola.RemoveAt(0);
+                trazo.MidPointCircle(temp.X, temp.Y, 25, Color.Red);
+                slow_motion(slow, tiempo);
+
+                if(distancia[posicion_vertice(temp)] != 0)
+                {
+                    pinta_arista(vertice_en(previo[posicion_vertice(temp)]), temp, Color.Red, Color.White, Color.White, Color.White, false);
+                    slow_motion(slow, tiempo);
+                }
+
+                if (visitados[actual])
+                    continue;
+                visitados[actual] = true;
+                Arista<V, A> tempA = temp.getArista();
+
+                for (int j = 0; j < temp.numeroAristas(temp); j++)
+                {
+                    adyacente = posicion_vertice(tempA.getDestino());
+                    peso = Convert.ToInt32(tempA.getPeso());
+                    if (!visitados[adyacente])
+                        relajacion(actual, adyacente, peso, slow, tiempo);
+                    tempA = tempA.getNext();
+                }
+            }
+
+            Thread.Sleep(5000);
+            restaura_arista();
+            return distancia;
+
+        }
+
+        private void iniciar()
+        {
+                distancia.Clear();
+                visitados.Clear();
+                previo.Clear();
+            
+
+            for(int i = 0; i < num_nodos; i++)
+            {
+                distancia.Add(10000);
+                visitados.Add(false);
+                previo.Add(-1);
+            }
+        }
+
+        private void relajacion(int actual, int adyacencia, int p, bool slow, int tiempo)
+        {
+            if(distancia[actual] + p < distancia[adyacencia])
+            {
+                distancia[adyacencia] = distancia[actual] + p;
+                previo[adyacencia] = actual;
+                Vertice<V, A> ver = vertice_en(adyacencia);
+                pinta_arista(vertice_en(actual), ver, Color.Gray, Color.Gray, Color.Gray, Color.Gray, false);
+                slow_motion(slow, tiempo);
+                cola.Add(adyacencia);
+            }
+        }
+
+        public List<List<int>> floyd_warshall(bool slow, int tiempo)
+        {
+            Vertice<V, A> tempv = inicio;
+            Arista<V, A> av;
+
+            while (tempv != null)
+            {
+                av = tempv.getArista();
+
+                while (av != null)
+                {
+                    pinta_arista(tempv, av.getDestino(), Color.Gray, Color.Gray, Color.Gray, Color.Gray);
+                    av = av.getNext();
+                }
+                tempv = tempv.getNext();
+            }
+
+            cargarImagen();
+
+            List<List<int>> distancias = new List<List<int>>();
+            Vertice<V, A> v = inicio;
+
+            for(int i = 0; i < num_nodos; i++)
+            {
+                trazo.MidPointCircle(v.X, v.Y, 25, Color.Yellow);
+                slow_motion(slow, tiempo);
+                List<int> temp = new List<int>();
+                Vertice<V, A> aux = inicio;
+                for(int j = 0; j < num_nodos; j++)
+                {
+                    trazo.MidPointCircle(aux.X, aux.Y, 25, Color.Red);
+                    slow_motion(slow, tiempo);
+
+                    if (i == j)
+                        temp.Add(0);
+                    else
+                    {
+                        Arista<V, A> a = v.getArista();
+
+                        while (a != null && a.getDestino() != aux)
+                            a = a.getNext();
+
+                        if (a == null)
+                            temp.Add(10000);
+                        else
+                        {
+                            pinta_arista(aux, a.getDestino(), Color.Red, Color.White, Color.White, Color.White, false);
+                            slow_motion(slow, tiempo);
+                            temp.Add(Convert.ToInt32(a.getPeso()));
+                            pinta_arista(aux, a.getDestino(), Color.Gray, Color.Gray, Color.Gray, Color.Gray, false);
+                        }
+                    }
+                    trazo.MidPointCircle(aux.X, aux.Y, 25, Color.White);
+                    aux = aux.getNext();
+                }
+
+                distancias.Add(temp);
+                trazo.MidPointCircle(v.X, v.Y, 25, Color.White);
+                v = v.getNext();
+
+            }
+
+            for(int i = 0; i < distancias.Count; i++)
+            {
+                trazo.MidPointCircle(vertice_en(i).X, vertice_en(i).Y, 25, Color.Yellow);
+                slow_motion(slow, tiempo);
+                for(int j = 0; j < distancias.Count; j++)
+                {
+                    trazo.MidPointCircle(vertice_en(j).X, vertice_en(j).Y, 25, Color.Red);
+                    slow_motion(slow, tiempo);
+                    for (int k = 0; k < distancias.Count; k++)
+                    {
+                        trazo.MidPointCircle(vertice_en(k).X, vertice_en(k).Y, 25, Color.Blue);
+                        slow_motion(slow, tiempo);
+                        if (distancias[i][j] > distancias[i][k] + distancias[k][j])
+                            distancias[i][j] = distancias[i][k] + distancias[k][j];
+                        trazo.MidPointCircle(vertice_en(k).X, vertice_en(k).Y, 25, Color.White);
+                    }
+                    trazo.MidPointCircle(vertice_en(j).X, vertice_en(j).Y, 25, Color.White);
+                }
+                trazo.MidPointCircle(vertice_en(i).X, vertice_en(i).Y, 25, Color.White);
+            }
+
+
+            Thread.Sleep(5000);
+            restaura_arista();
+            return distancias;
+
+        }
 
         public void slow_motion(bool si, int tiempo)
         {

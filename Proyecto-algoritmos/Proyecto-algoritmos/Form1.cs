@@ -179,10 +179,54 @@ namespace Proyecto_algoritmos
             formulon.Show();
         }
 
+        /*Método que se ejecuta en el botón 8*/
         public void KRUSKAL(bool slow, int tiempo)
         {
-            grafo.kruskal(slow, tiempo);
+            List<List<int>> matrix;
+            matrix = grafo.kruskal(slow, tiempo);
             grafo.cargarImagen();
+            Form12 formulon = new Form12();
+            formulon.matix = matrix;
+            formulon.Show();
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            Form13 formulon = new Form13();
+            formulon.f1 = this;
+            formulon.n = grafo.Num_Nodos;
+            formulon.i = i;
+            formulon.Show();
+        }
+
+        /*Método que se ejecuta en el botón 10*/
+        public void Dijkstra(int v, bool slow, int tiempo)
+        {
+            List<int> matrix;
+            matrix = grafo.dijkstra(grafo.busqueda_vertice(v),slow, tiempo);
+            grafo.cargarImagen();
+            Form14 formulon = new Form14();
+            formulon.matix = matrix;
+            formulon.Show();
+        }
+
+        private void button11_Click(object sender, EventArgs e)
+        {
+            Form16 formulon = new Form16();
+            formulon.f1 = this;
+            formulon.n = grafo.Num_Nodos;
+            formulon.i = i;
+            formulon.Show();
+        }
+
+        public void floyd(bool slow, int tiempo)
+        {
+            List<List<int>> matrix;
+            matrix = grafo.floyd_warshall(slow, tiempo);
+            grafo.cargarImagen();
+            Form15 formulon = new Form15();
+            formulon.matix = matrix;
+            formulon.Show();
         }
     }
 }

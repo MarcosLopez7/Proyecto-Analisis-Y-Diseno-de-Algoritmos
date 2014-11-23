@@ -9,6 +9,7 @@ namespace Proyecto_algoritmos
     class Vertice<V, A>
     {
         V info;
+        V info2;
         private int x;
        private int y   {get; set;}
         private Vertice<V, A> siguiente;
@@ -17,6 +18,16 @@ namespace Proyecto_algoritmos
         public Vertice(V info, int laX, int laY)
         {
             this.info = info;
+            siguiente = null;
+            aristas = null;
+            this.x = laX;
+            this.y = laY;
+        }
+
+        public Vertice(V info, V info2, int laX, int laY)
+        {
+            this.info = info;
+            this.info2 = info2;
             siguiente = null;
             aristas = null;
             this.x = laX;
