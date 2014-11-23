@@ -14,3 +14,6 @@ C:\Users\Marcos López\Documents\GitHub\Proyecto-Analisis-Y-Diseno-de-Algoritmos
 C:\Users\Marcos López\Documents\GitHub\Proyecto-Analisis-Y-Diseno-de-Algoritmos\Proyecto-algoritmos\Proyecto-algoritmos\obj\Debug\Proyecto_algoritmos.Form6.resources
 C:\Users\Marcos López\Documents\GitHub\Proyecto-Analisis-Y-Diseno-de-Algoritmos\Proyecto-algoritmos\Proyecto-algoritmos\obj\Debug\Proyecto_algoritmos.Form7.resources
 C:\Users\Marcos López\Documents\GitHub\Proyecto-Analisis-Y-Diseno-de-Algoritmos\Proyecto-algoritmos\Proyecto-algoritmos\obj\Debug\Proyecto_algoritmos.Form8.resources
+C:\Users\Marcos López\Documents\GitHub\Proyecto-Analisis-Y-Diseno-de-Algoritmos\Proyecto-algoritmos\Proyecto-algoritmos\obj\Debug\Proyecto_algoritmos.Form9.resources
+C:\Users\Marcos López\Documents\GitHub\Proyecto-Analisis-Y-Diseno-de-Algoritmos\Proyecto-algoritmos\Proyecto-algoritmos\obj\Debug\Proyecto_algoritmos.Form10.resources
+C:\Users\Marcos López\Documents\GitHub\Proyecto-Analisis-Y-Diseno-de-Algoritmos\Proyecto-algoritmos\Proyecto-algoritmos\obj\Debug\Proyecto_algoritmos.Form11.resources

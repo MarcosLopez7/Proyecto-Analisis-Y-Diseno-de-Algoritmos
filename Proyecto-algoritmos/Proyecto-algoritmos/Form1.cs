@@ -44,10 +44,10 @@ namespace Proyecto_algoritmos
         }
 
         /*Método que se ejecuta desde el botón 9*/
-        public void cambiarVertice(int x, int y, int i)
+        public void cambiarVertice(int x, int y, int i, bool slow, int tiempo)
         {
 
-            grafo.cambiar_posicion_vertice(x, y, grafo.busqueda_vertice(i), false);
+            grafo.cambiar_posicion_vertice(x, y, grafo.busqueda_vertice(i), slow, tiempo);
             grafo.cargarImagen();
         }
 
@@ -112,9 +112,9 @@ namespace Proyecto_algoritmos
         }
 
         /*Método que se ejecuta en el botón 7*/
-        public void elimina_vertice(int v, bool slow)
+        public void elimina_vertice(int v, bool slow, int tiempo)
         {
-            grafo.elimina_vertice(grafo.busqueda_vertice(v), slow);
+            grafo.elimina_vertice(grafo.busqueda_vertice(v), slow, tiempo);
             grafo.cargarImagen();
         }
 
@@ -128,9 +128,9 @@ namespace Proyecto_algoritmos
         }
 
         /*Método que se ejecuta en el botón 3*/
-        public void bfs(int v, bool slow)
+        public void bfs(int v, bool slow, int tiempo)
         {
-            grafo.BFS(grafo.busqueda_vertice(v), slow);
+            grafo.BFS(grafo.busqueda_vertice(v), slow, tiempo);
             grafo.cargarImagen();
         }
 
@@ -143,9 +143,45 @@ namespace Proyecto_algoritmos
             formulon.Show();
         }
 
-        public void dfs(int v, bool slow)
+        /* Método que se ejecuta en el botón 4 */
+        public void dfs(int v, bool slow, int tiempo)
         {
-            grafo.DFS(grafo.busqueda_vertice(v), slow);
+            grafo.DFS(grafo.busqueda_vertice(v), slow, tiempo);
+            grafo.cargarImagen();
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            Form9 formulon = new Form9();
+            formulon.f1 = this;
+            formulon.n = grafo.Num_Nodos;
+            formulon.i = i;
+            formulon.Show();
+        }
+
+        /*Método que se ejecuta en el botón 5*/
+        public void PRIM(bool slow, int tiempo)
+        {
+            List<List<int>> matrix;
+            matrix = grafo.prim(slow, tiempo);
+            grafo.cargarImagen();
+            Form10 formulon = new Form10();
+            formulon.matix = matrix;
+            formulon.Show();
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            Form11 formulon = new Form11();
+            formulon.f1 = this;
+            formulon.n = grafo.Num_Nodos;
+            formulon.i = i;
+            formulon.Show();
+        }
+
+        public void KRUSKAL(bool slow, int tiempo)
+        {
+            grafo.kruskal(slow, tiempo);
             grafo.cargarImagen();
         }
     }

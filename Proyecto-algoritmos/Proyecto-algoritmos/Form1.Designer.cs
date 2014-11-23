@@ -96,12 +96,13 @@
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(172, 41);
             this.button5.TabIndex = 5;
-            this.button5.Text = "button5";
+            this.button5.Text = "Prim";
             this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(26, 416);
+            this.button6.Location = new System.Drawing.Point(26, 495);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(172, 41);
             this.button6.TabIndex = 6;
@@ -111,7 +112,7 @@
             // 
             // button7
             // 
-            this.button7.Location = new System.Drawing.Point(26, 499);
+            this.button7.Location = new System.Drawing.Point(26, 578);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(172, 41);
             this.button7.TabIndex = 7;
@@ -121,12 +122,13 @@
             // 
             // button8
             // 
-            this.button8.Location = new System.Drawing.Point(26, 576);
+            this.button8.Location = new System.Drawing.Point(26, 417);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(172, 41);
             this.button8.TabIndex = 8;
-            this.button8.Text = "button8";
+            this.button8.Text = "Kruskal";
             this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
             // button9
             // 

@@ -22,11 +22,13 @@ namespace Proyecto_algoritmos
        private PictureBox imagen;
        private Numeros num;
        private List<bool> visitadoDFS;
+       private List<bool> visitadoPrim;
 
        public Grafo()
        {
            inicio = null;
            visitadoDFS = new List<bool>();
+           visitadoPrim = new List<bool>();
        }
 
        public int Num_Nodos
@@ -42,6 +44,7 @@ namespace Proyecto_algoritmos
            trazo = new Computacional_Geometry(imagen,1170,730);
            num = new Numeros(trazo);
            visitadoDFS = new List<bool>();
+           visitadoPrim = new List<bool>();
        }
 
         public void setImagen(PictureBox i)
@@ -415,7 +418,7 @@ namespace Proyecto_algoritmos
            }
        }
 
-       public void cambiar_posicion_vertice(int xt, int yt, Vertice<V, A> ver, bool slow)
+       public void cambiar_posicion_vertice(int xt, int yt, Vertice<V, A> ver, bool slow, int tiempo)
        {
 
            Vertice<V, A> temp = inicio;
@@ -434,7 +437,7 @@ namespace Proyecto_algoritmos
                        {
                            pinta_arista(temp, a.getDestino(), Color.Black, Color.Black, Color.Black, Color.Black);
                            a = a.getNext();
-                           slow_motion(slow);
+                           slow_motion(slow, tiempo);
                        }
                    }
                }
@@ -448,7 +451,7 @@ namespace Proyecto_algoritmos
                            if (a.getDestino() == v)
                            {
                                pinta_arista(temp, a.getDestino(), Color.Black, Color.Black, Color.Black, Color.Black);
-                               slow_motion(slow);
+                               slow_motion(slow, tiempo);
                            }
                            a = a.getNext();
                        }
@@ -481,7 +484,7 @@ namespace Proyecto_algoritmos
                        {
                            pinta_arista(temp, a.getDestino(), Color.White, Color.Blue, Color.Green, Color.Yellow);
                            a = a.getNext();
-                           slow_motion(slow);
+                           slow_motion(slow, tiempo);
                        }
                    }
                }
@@ -495,7 +498,7 @@ namespace Proyecto_algoritmos
                            if (a.getDestino() == v)
                            {
                                pinta_arista(temp, a.getDestino(), Color.White, Color.Blue, Color.Green, Color.Yellow);
-                               slow_motion(slow);
+                               slow_motion(slow, tiempo);
                            }
                            a = a.getNext();
                        }
@@ -706,7 +709,7 @@ namespace Proyecto_algoritmos
 
        }
 
-        public void elimina_vertice(Vertice<V, A> v, bool slow)
+        public void elimina_vertice(Vertice<V, A> v, bool slow, int tiempo)
         {
             Vertice<V, A> temp = inicio;
             Vertice<V, A> previo = null;
@@ -727,7 +730,7 @@ namespace Proyecto_algoritmos
                             elimina_arista(temp, tempA.getDestino());
                             tempA = null;
                             tempA = a;
-                            slow_motion(slow);
+                            slow_motion(slow, tiempo);
                         }
                     }
                 }
@@ -744,7 +747,7 @@ namespace Proyecto_algoritmos
                             {
                                 elimina_arista(temp, tempA.getDestino());
                                 tempA = null;
-                                slow_motion(slow);
+                                slow_motion(slow, tiempo);
                             }
                             tempA = a;
                         }
@@ -776,7 +779,7 @@ namespace Proyecto_algoritmos
             num_nodos--;
         }
 
-        public void BFS(Vertice<V, A> v, bool slow)
+        public void BFS(Vertice<V, A> v, bool slow, int tiempo)
         {
 
             List<bool> visitado = new List<bool>();
@@ -796,7 +799,7 @@ namespace Proyecto_algoritmos
                 u = q.Dequeue();
                 a = u.getArista();
                 trazo.MidPointCircle(u.X, u.Y, 25, Color.Yellow);
-                slow_motion(slow);
+                slow_motion(slow, tiempo);
 
                 while (a != null)
                 {
@@ -811,7 +814,7 @@ namespace Proyecto_algoritmos
                     else
                         pinta_arista(u, n, Color.Gray, Color.Gray, Color.Gray, Color.Gray, false);
 
-                        slow_motion(slow);
+                        slow_motion(slow, tiempo);
                         a = a.getNext();
                 }
                 trazo.MidPointCircle(u.X, u.Y, 25, Color.Red);
@@ -826,7 +829,7 @@ namespace Proyecto_algoritmos
 
 
 
-        public void DFS(Vertice<V, A> v, bool slow)
+        public void DFS(Vertice<V, A> v, bool slow, int tiempo)
         {
 
             if(visitadoDFS.Count == 0)
@@ -836,19 +839,19 @@ namespace Proyecto_algoritmos
                 for (int i = 0; i < num_nodos; i++)
                     visitadoDFS[i] = false;
 
-            dfs(v, slow);
+            dfs(v, slow, tiempo);
             Thread.Sleep(3000);
             restaura_arista();
         }
 
-        private void dfs(Vertice<V, A> v, bool slow)
+        private void dfs(Vertice<V, A> v, bool slow, int tiempo)
         {
 
             visitadoDFS[posicion_vertice(v)] = true;
             Arista<V, A> a = v.getArista();
             Vertice<V, A> w;
             trazo.MidPointCircle(v.X, v.Y, 25, Color.Yellow);
-            slow_motion(slow);
+            slow_motion(slow, tiempo);
             while(a != null)
             {
                 w = a.getDestino();
@@ -856,21 +859,21 @@ namespace Proyecto_algoritmos
                 {
                     pinta_arista(v, w, Color.Red, Color.White, Color.White, Color.White, false);
                     trazo.MidPointCircle(v.X, v.Y, 25, Color.Red);
-                    slow_motion(slow);
-                    dfs(w, slow);
+                    slow_motion(slow, tiempo);
+                    dfs(w, slow, tiempo);
                     trazo.MidPointCircle(v.X, v.Y, 25, Color.Yellow);
-                    slow_motion(slow);
+                    slow_motion(slow, tiempo);
                 }
                 else
                 {
                     pinta_arista(v, w, Color.Gray, Color.Gray, Color.Gray, Color.Gray, false);
-                    slow_motion(slow);
+                    slow_motion(slow, tiempo);
                 }
 
                 a = a.getNext();
             }
             trazo.MidPointCircle(v.X, v.Y, 25, Color.Red);
-            slow_motion(slow);
+            slow_motion(slow, tiempo);
         }
 
         public void restaura_arista()
@@ -896,13 +899,183 @@ namespace Proyecto_algoritmos
 
         }
 
-      
+        public List<List<int>> prim(bool slow, int tiempo)
+        {
+           
 
-        public void slow_motion(bool si)
+            List<List<int>> matrix = new List<List<int>>();
+            Vertice<V, A> v;
+            Arista<V, A> a;
+
+            for(int i = 0; i < num_nodos; i++)
+            {
+                List<int> aux = new List<int>();
+                aux.Add(i + 1);
+                aux.Add(10000);
+                aux.Add(-1);
+                matrix.Add(aux);
+            }
+
+            if (visitadoPrim.Count == 0)
+                for (int i = 0; i < num_nodos; i++)
+                    visitadoPrim.Add(false);
+            else
+                for (int i = 0; i < num_nodos; i++)
+                    visitadoPrim[i] = false;
+
+            matrix[0][1] = 0;
+            for(int i = 1; i < num_nodos + 1; i++)
+            {
+
+                int pos = minimoPrim(matrix, slow, tiempo);
+                v = vertice_en(pos);
+
+                if (pos != 0)
+                {
+                    pinta_arista(vertice_en(matrix[pos][2] - 1), vertice_en(pos), Color.Red, Color.White, Color.White, Color.White, false);
+                    slow_motion(slow, tiempo);
+                }
+
+                trazo.MidPointCircle(v.X, v.Y, 25, Color.Yellow);
+                slow_motion(slow, tiempo);
+                a = v.getArista();
+
+                Arista<V, A> tempA = a;
+
+                while(tempA != null)
+                {
+                    pinta_arista(v, tempA.getDestino(), Color.Gray, Color.Gray, Color.Gray, Color.Gray, false);
+                    tempA = tempA.getNext();
+                }
+                int minimo = 0;
+                while(a != null)
+                {
+
+                    if(!visitadoPrim[posicion_vertice(a.getDestino())] && Convert.ToInt32(a.getPeso()) < matrix[posicion_vertice(a.getDestino())][1])
+                    {
+                        
+                        matrix[posicion_vertice(a.getDestino())][2] = pos + 1;
+                        matrix[posicion_vertice(a.getDestino())][1] = Convert.ToInt32(a.getPeso());
+                        minimo = Convert.ToInt32(a.getPeso());
+                    }
+                    /*else
+                    {
+                        if(visitadoPrim[posicion_vertice(a.getDestino())])
+                        {
+                            pinta_arista(v, a.getDestino(), Color.Gray, Color.Gray, Color.Gray, Color.Gray, false);
+                            slow_motion(slow, tiempo);
+                        }
+                    }*/
+
+                    slow_motion(slow, tiempo);
+                    a = a.getNext();
+                }
+                trazo.MidPointCircle(v.X, v.Y, 25, Color.Red);
+                slow_motion(slow, tiempo);
+            }
+
+            Thread.Sleep(5000);
+            restaura_arista();
+            return matrix;
+
+        }
+
+        private int minimoPrim(List<List<int>> l, bool slow, int tiempo)
+        {
+
+            int minimo = 10000;
+            int pos = 0;
+
+            for(int i = 0; i < num_nodos; i++)
+            {
+                if(!visitadoPrim[i] && l[i][1] < minimo)
+                {
+                    minimo = l[i][1];
+                    pos = i;
+                }
+            }
+
+           
+            visitadoPrim[pos] = true;
+            return pos;
+        }
+
+        public List<List<int>> kruskal(bool slow, int tiempo)
+        {
+            List<List<int>> arbol = new List<List<int>>();
+            List<int> pertenece = new List<int>();
+
+            for(int i = 0; i < num_nodos; i++)
+            {
+                List<int> aux = new List<int>();
+                for (int j = 0; j < num_nodos; j++)
+                    aux.Add(0);
+                arbol.Add(aux);
+                pertenece.Add(i);
+            }
+
+            Vertice<V, A> vA = null;
+            Vertice<V, A> vB = null;
+            Vertice<V, A> temp;
+            Arista<V, A> a;
+            int arcos = 1;
+
+            while(arcos < num_nodos)
+            {
+                int min = 10000;
+                temp = inicio;
+
+                while(temp != null)
+                {
+                    a = temp.getArista();
+                    while(a != null)
+                    {
+                        if(min > Convert.ToInt32(a.getPeso()) && pertenece[posicion_vertice(temp)] != pertenece[posicion_vertice(a.getDestino())])
+                        {
+                            min = Convert.ToInt32(a.getPeso());
+                            vA = temp;
+                            vB = a.getDestino();
+                        }
+
+                        a = a.getNext();
+                    }
+
+                    temp = temp.getNext();
+                }
+
+                pinta_arista(vA, vB, Color.Red, Color.White, Color.White, Color.White, false);
+                slow_motion(slow, tiempo);
+
+                if(pertenece[posicion_vertice(vA)] != pertenece[posicion_vertice(vB)])
+                {
+                    arbol[posicion_vertice(vA)][posicion_vertice(vB)] = min;
+                    arbol[posicion_vertice(vB)][posicion_vertice(vA)] = min;
+
+                    int it = pertenece[posicion_vertice(vB)];
+                    pertenece[posicion_vertice(vB)] = pertenece[posicion_vertice(vA)];
+                    
+                    for(int i = 0; i < num_nodos; i++)
+                    {
+                        if (pertenece[i] == it)
+                            pertenece[i] = pertenece[posicion_vertice(vA)];
+                    }
+
+                    arcos++;
+                }
+
+            }
+
+            Thread.Sleep(5000);
+            restaura_arista();
+            return arbol;
+        }
+
+
+        public void slow_motion(bool si, int tiempo)
         {
             if (si)
             {
-                Thread.Sleep(1500);
+                Thread.Sleep(tiempo);
                 cargarImagen();
             }
         }
