@@ -36,6 +36,11 @@ namespace Proyecto_algoritmos
            cola = new List<int>();
        }
 
+       public Vertice<V, A> getInicio()
+       {
+           return inicio;
+       }
+
        public int Num_Nodos
        {
            get { return num_nodos; }
@@ -830,7 +835,8 @@ namespace Proyecto_algoritmos
 
             }
 
-            Thread.Sleep(2000);
+            if(slow)
+                Thread.Sleep(2000);
 
             restaura_arista();
 
@@ -841,14 +847,15 @@ namespace Proyecto_algoritmos
         public void DFS(Vertice<V, A> v, bool slow, int tiempo)
         {
 
-            if(visitadoDFS.Count == 0)
+            visitadoDFS.Clear();
+           
             for (int i = 0; i < num_nodos; i++)
                 visitadoDFS.Add(false);
-            else
-                for (int i = 0; i < num_nodos; i++)
-                    visitadoDFS[i] = false;
+           
 
             dfs(v, slow, tiempo);
+
+            if(slow)
             Thread.Sleep(3000);
             restaura_arista();
         }
@@ -910,7 +917,7 @@ namespace Proyecto_algoritmos
 
         public List<List<int>> prim(bool slow, int tiempo)
         {
-           
+            Form18 f = new Form18();
 
             List<List<int>> matrix = new List<List<int>>();
             Vertice<V, A> v;
@@ -925,14 +932,17 @@ namespace Proyecto_algoritmos
                 matrix.Add(aux);
             }
 
-            if (visitadoPrim.Count == 0)
+            visitadoPrim.Clear();
+
                 for (int i = 0; i < num_nodos; i++)
                     visitadoPrim.Add(false);
-            else
-                for (int i = 0; i < num_nodos; i++)
-                    visitadoPrim[i] = false;
+            
 
             matrix[0][1] = 0;
+            f.matix = matrix;
+            f.Show();
+            f.Refresh();
+
             for(int i = 1; i < num_nodos + 1; i++)
             {
 
@@ -975,7 +985,9 @@ namespace Proyecto_algoritmos
                             slow_motion(slow, tiempo);
                         }
                     }*/
-
+                    f.matix = matrix;
+                    f.carga();
+                    f.Refresh();
                     slow_motion(slow, tiempo);
                     a = a.getNext();
                 }
@@ -983,6 +995,8 @@ namespace Proyecto_algoritmos
                 slow_motion(slow, tiempo);
             }
 
+            f.Close();
+            if(slow)
             Thread.Sleep(5000);
             restaura_arista();
             return matrix;
@@ -1047,6 +1061,11 @@ namespace Proyecto_algoritmos
             Arista<V, A> a;
             int arcos = 1;
 
+            Form19 f = new Form19();
+            f.matix = arbol;
+            f.Show();
+            f.Refresh();
+
             while(arcos < num_nodos)
             {
                 int min = 10000;
@@ -1068,12 +1087,16 @@ namespace Proyecto_algoritmos
                     }
 
                     temp = temp.getNext();
+                    f.matix = arbol;
+                    f.carga();
+                    f.Refresh();
+                    slow_motion(slow, tiempo);
                 }
 
                 pinta_arista(vA, vB, Color.Red, Color.White, Color.White, Color.White, false);
                 trazo.MidPointCircle(vA.X, vA.Y, 25, Color.Red);
                 trazo.MidPointCircle(vB.X, vB.Y, 25, Color.Red);
-                slow_motion(slow, tiempo);
+                
 
                 if(pertenece[posicion_vertice(vA)] != pertenece[posicion_vertice(vB)])
                 {
@@ -1094,6 +1117,8 @@ namespace Proyecto_algoritmos
 
             }
 
+            f.Close();
+            if(slow)
             Thread.Sleep(5000);
             restaura_arista();
             return arbol;
@@ -1179,6 +1204,7 @@ namespace Proyecto_algoritmos
                 }
             }
 
+            if(slow)
             Thread.Sleep(5000);
             restaura_arista();
             return distancia;
@@ -1297,6 +1323,7 @@ namespace Proyecto_algoritmos
             }
 
 
+            if(slow)
             Thread.Sleep(5000);
             restaura_arista();
             return distancias;

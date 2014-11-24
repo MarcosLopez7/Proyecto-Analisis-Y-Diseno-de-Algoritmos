@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace Proyecto_algoritmos
 {
@@ -15,6 +16,7 @@ namespace Proyecto_algoritmos
         private Grafo<int, int> grafo = new Grafo<int,int>();
         private int i = 0;
         public bool aceptado;
+        int n = 0;
         public Form1()
         {
             InitializeComponent();
@@ -219,6 +221,7 @@ namespace Proyecto_algoritmos
             formulon.Show();
         }
 
+        /* Método que se ejecuta en el botón 11*/
         public void floyd(bool slow, int tiempo)
         {
             List<List<int>> matrix;
@@ -226,6 +229,79 @@ namespace Proyecto_algoritmos
             grafo.cargarImagen();
             Form15 formulon = new Form15();
             formulon.matix = matrix;
+            formulon.Show();
+        }
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+            n++;
+            List<int> tiempos = new List<int>();
+            Vertice<int, int> nodulon = new Vertice<int, int>(0, 1100, 700);
+            Stopwatch sw = new Stopwatch();
+
+            sw.Start();
+            grafo.BFS(grafo.getInicio(), false, 0);
+            sw.Stop();
+            tiempos.Add(Convert.ToInt32(sw.ElapsedMilliseconds));
+            sw.Reset();
+
+            sw.Start();
+            grafo.DFS(grafo.getInicio(), false, 0);
+            sw.Stop();
+            tiempos.Add(Convert.ToInt32(sw.ElapsedMilliseconds));
+            sw.Reset();
+
+            sw.Start();
+            grafo.prim(false, 0);
+            sw.Stop();
+            tiempos.Add(Convert.ToInt32(sw.ElapsedMilliseconds));
+            sw.Reset();
+
+            sw.Start();
+            grafo.kruskal(false, 0);
+            sw.Stop();
+            tiempos.Add(Convert.ToInt32(sw.ElapsedMilliseconds));
+            sw.Reset();
+
+            sw.Start();
+            grafo.dijkstra(grafo.getInicio(), false, 0);
+            sw.Stop();
+            tiempos.Add(Convert.ToInt32(sw.ElapsedMilliseconds));
+            sw.Reset();
+
+            sw.Start();
+            grafo.floyd_warshall(false, 0);
+            sw.Stop();
+            tiempos.Add(Convert.ToInt32(sw.ElapsedMilliseconds));
+            sw.Reset();
+
+            sw.Start();
+            grafo.insertar_vertice(nodulon, 1100, 700);
+            sw.Stop();
+            tiempos.Add(Convert.ToInt32(sw.ElapsedMilliseconds));
+            sw.Reset();
+
+            sw.Start();
+            grafo.insertar_aritsta(grafo.getInicio(), nodulon, 1);
+            sw.Stop();
+            tiempos.Add(Convert.ToInt32(sw.ElapsedMilliseconds));
+            sw.Reset();
+
+            sw.Start();
+            grafo.elimina_arista(grafo.getInicio(), nodulon);
+            sw.Stop();
+            tiempos.Add(Convert.ToInt32(sw.ElapsedMilliseconds));
+            sw.Reset();
+
+            sw.Start();
+            grafo.elimina_vertice(nodulon, false, 0);
+            sw.Stop();
+            tiempos.Add(Convert.ToInt32(sw.ElapsedMilliseconds));
+            sw.Reset();
+
+            Form17 formulon = new Form17();
+            formulon.tiempos = tiempos;
+            formulon.i = n;
             formulon.Show();
         }
     }

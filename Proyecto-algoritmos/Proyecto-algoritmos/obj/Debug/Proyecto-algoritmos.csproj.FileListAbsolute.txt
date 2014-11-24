@@ -22,3 +22,11 @@ C:\Users\Marcos López\Documents\GitHub\Proyecto-Analisis-Y-Diseno-de-Algoritmos
 C:\Users\Marcos López\Documents\GitHub\Proyecto-Analisis-Y-Diseno-de-Algoritmos\Proyecto-algoritmos\Proyecto-algoritmos\obj\Debug\Proyecto_algoritmos.Form14.resources
 C:\Users\Marcos López\Documents\GitHub\Proyecto-Analisis-Y-Diseno-de-Algoritmos\Proyecto-algoritmos\Proyecto-algoritmos\obj\Debug\Proyecto_algoritmos.Form15.resources
 C:\Users\Marcos López\Documents\GitHub\Proyecto-Analisis-Y-Diseno-de-Algoritmos\Proyecto-algoritmos\Proyecto-algoritmos\obj\Debug\Proyecto_algoritmos.Form16.resources
+C:\Users\Marcos López\Documents\GitHub\Proyecto-Analisis-Y-Diseno-de-Algoritmos\Proyecto-algoritmos\Proyecto-algoritmos\obj\Debug\Proyecto_algoritmos.Form17.resources
+C:\Users\Marcos López\Documents\GitHub\Proyecto-Analisis-Y-Diseno-de-Algoritmos\Proyecto-algoritmos\Proyecto-algoritmos\bin\Debug\itextsharp.dll
+C:\Users\Marcos López\Documents\GitHub\Proyecto-Analisis-Y-Diseno-de-Algoritmos\Proyecto-algoritmos\Proyecto-algoritmos\bin\Debug\itextsharp.pdfa.dll
+C:\Users\Marcos López\Documents\GitHub\Proyecto-Analisis-Y-Diseno-de-Algoritmos\Proyecto-algoritmos\Proyecto-algoritmos\bin\Debug\itextsharp.xtra.dll
+C:\Users\Marcos López\Documents\GitHub\Proyecto-Analisis-Y-Diseno-de-Algoritmos\Proyecto-algoritmos\Proyecto-algoritmos\bin\Debug\itextsharp.xml
+C:\Users\Marcos López\Documents\GitHub\Proyecto-Analisis-Y-Diseno-de-Algoritmos\Proyecto-algoritmos\Proyecto-algoritmos\bin\Debug\ExcelLibrary.dll
+C:\Users\Marcos López\Documents\GitHub\Proyecto-Analisis-Y-Diseno-de-Algoritmos\Proyecto-algoritmos\Proyecto-algoritmos\obj\Debug\Proyecto_algoritmos.Form18.resources
+C:\Users\Marcos López\Documents\GitHub\Proyecto-Analisis-Y-Diseno-de-Algoritmos\Proyecto-algoritmos\Proyecto-algoritmos\obj\Debug\Proyecto_algoritmos.Form19.resources
