@@ -1025,7 +1025,6 @@ namespace Proyecto_algoritmos
 
         public List<List<int>> kruskal(bool slow, int tiempo)
         {
-
             Vertice<V, A> tempv = inicio;
             Arista<V, A> av;
 
@@ -1087,16 +1086,15 @@ namespace Proyecto_algoritmos
                     }
 
                     temp = temp.getNext();
-                    f.matix = arbol;
-                    f.carga();
-                    f.Refresh();
-                    slow_motion(slow, tiempo);
                 }
 
                 pinta_arista(vA, vB, Color.Red, Color.White, Color.White, Color.White, false);
                 trazo.MidPointCircle(vA.X, vA.Y, 25, Color.Red);
                 trazo.MidPointCircle(vB.X, vB.Y, 25, Color.Red);
-                
+                f.matix = arbol;
+                f.carga();
+                f.Refresh();
+                slow_motion(slow, tiempo);
 
                 if(pertenece[posicion_vertice(vA)] != pertenece[posicion_vertice(vB)])
                 {
@@ -1165,6 +1163,7 @@ namespace Proyecto_algoritmos
 
         public List<int> dijkstra(Vertice<V, A> i, bool slow, int tiempo)
         {
+            Form20 f = new Form20();
             iniciar();
             Vertice<V, A> vertice = i;
             cola.Add(posicion_vertice(vertice));
@@ -1241,6 +1240,7 @@ namespace Proyecto_algoritmos
 
         public List<List<int>> floyd_warshall(bool slow, int tiempo)
         {
+            Form21 f = new Form21();
             Vertice<V, A> tempv = inicio;
             Arista<V, A> av;
 
